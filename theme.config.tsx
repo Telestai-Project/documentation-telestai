@@ -19,7 +19,7 @@ const config: DocsThemeConfig = {
       openGraph: {
         type: 'website',
         url: 'https://www.telestai.io/', // Main website URL
-        title: 'Telestai - Open Source Blockchain Ecosystem',
+        title: 'Telestai - Docs',
         description: 'Telestai is built by passionate blockchain developers, committed to providing tools that power decentralized technology.',
         images: [
           {
