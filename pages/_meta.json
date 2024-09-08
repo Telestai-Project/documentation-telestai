@@ -1,7 +1,7 @@
 {
   "index": "Introduction",
-  "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
+  "mining": "Mining Telestai",
+  "Core_Wallet": "Core Wallet",
   "about": {
     "title": "About",
     "type": "page"
@@ -9,7 +9,7 @@
   "contact": {
     "title": "Contact ↗",
     "type": "page",
-    "href": "https://twitter.com/shuding_",
+    "href": "https://discord.gg/VmFXfHnZE5",
     "newWindow": true
   }
 }

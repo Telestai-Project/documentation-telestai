@@ -1,22 +1,32 @@
-# Nextra Docs Template 
+# Telestai Documentation
 
-This is a template for creating documentation with [Nextra](https://nextra.site).
+Welcome to the official documentation for **Telestai**, a decentralized, open-source blockchain platform built to empower developers and inspire innovation. This documentation provides details on how to use Telestai, the ecosystem, and the tools we provide for developers and contributors.
 
-[**Live Demo →**](https://nextra-docs-template.vercel.app)
+## Get Involved
 
-[![](.github/screenshot.png)](https://nextra-docs-template.vercel.app)
+We invite all contributors, developers, and community members to participate in building and maintaining the Telestai platform. This documentation is open for contributions, and we encourage PRs that help expand or clarify the available information. Contributions are rewarded based on their impact!
 
-## Quick Start
+If you want to join the conversation, [come chat with us on Discord](https://discord.gg/VmFXfHnZE5). We’re always open to questions and suggestions from the community.
 
-Click the button to clone this repository and deploy it on Vercel:
+## How to Contribute
 
-[![](https://vercel.com/button)](https://vercel.com/new/clone?s=https%3A%2F%2Fgithub.com%2Fshuding%2Fnextra-docs-template&showOptionalTeamCreation=false)
+You can contribute by submitting pull requests (PRs) with improvements or additions to this documentation. Whether you’re a developer adding technical information, or a community member improving accessibility or readability, all contributions are valuable.
+
+---
 
 ## Local Development
 
-First, run `pnpm i` to install the dependencies.
+To work on this documentation locally:
 
-Then, run `pnpm dev` to start the development server and visit localhost:3000.
+1. First, run `pnpm i` to install the dependencies.
+
+2. Then, run `pnpm dev` to start the development server and visit `localhost:3000`.
+
+---
+
+## About Telestai
+
+Telestai is a next-generation, open-source blockchain forked from Ravencoin, and employs a low-power mining algorithm known as **Meraki**. Telestai aims to build a decentralized, open-source ecosystem that fosters innovation and allows developers to create decentralized applications with real-world value.
 
 ## License
 

@@ -1,0 +1,141 @@
+# Telestai Mining Tools
+
+Welcome to the Telestai mining documentation. Below you'll find information on various ways to mine Telestai, including mining software, pool mining, using a stratum proxy, and solo mining directly to your core wallet.
+
+## Mining Software and Pools
+
+Join the decentralized revolution by mining Telestai and securing the network while earning rewards. We provide several mining software options and mining pools for different needs. Choose the one that best suits you!
+
+### Mining Software
+
+| Miner           | Download Link                                                                         |
+|-----------------|---------------------------------------------------------------------------------------|
+| **SRB Miner**   | [Download SRB Miner](https://github.com/doktor83/SRBMiner-Multi/releases)              |
+| **WildRig Miner**| [Download WildRig Miner](https://github.com/andru-kun/wildrig-multi/releases)         |
+| **Native Meraki Miner** | [Download Meraki Miner](https://github.com/Telestai-Project/tele-meraki-miner/releases) |
+
+### Mining Pools
+
+| Pool            | Join Link                                                                              |
+|-----------------|----------------------------------------------------------------------------------------|
+| **CoinMinerz**  | [Join CoinMinerz](https://coinminerz.com/pool/Telestai)                                 |
+| **Evepool**     | [Join Evepool](https://mine.evepool.pw/#telestai)                                       |
+| **Multicoin**   | [Join Multicoin](https://multicoin.co/pool/telestai_solo)                               |
+| **CrimsonFusion**| [Join CrimsonFusion](https://crimsonfusion.org/pool/telestai)                          |
+| **Mining4People**| [Join Mining4People](https://mining4people.com/pool/telestai-pplnsbf70)                |
+| **RPlant**      | [Join RPlant](https://rplant.xyz/)                                                     |
+
+Check out the individual pool pages for setup instructions and miner configurations.
+
+---
+
+## Stratum Proxy Mining
+
+Telestai supports stratum proxy mining, allowing you to mine directly to your wallet using mining software that supports the stratum protocol. This method is great for users who want more control over their mining operations.
+
+### Prerequisites
+
+- **Python 3.8+** installed.
+- **Telemeraki Miner** or another supported miner.
+- A configured **Telestai Core Wallet**.
+
+### Setting Up Stratum Proxy
+
+1. **Download the Stratum Proxy:**
+   - [Download Stratum Proxy](https://github.com/cdonnachie/telestai-stratum-proxy)
+
+2. **Install Dependencies:**
+   ```bash
+   python3 -m pip install -r requirements.txt
+   ```
+
+3. **Run the Stratum Proxy (Example for Mainnet):**
+   ```bash
+   python3 telestai-stratum-proxy.py --rpcuser my_username --rpcpassword my_password --rpcip 127.0.0.1 --rpcport 8766 -j
+   ```
+
+4. **Connect Your Miner:**
+   - Example for **T-Rex Miner**:
+   ```bash
+   t-rex -a kawpow -o stratum+tcp://127.0.0.1:54321 -u YOUR_WALLET_ADDRESS -p x
+   ```
+
+Refer to the Stratum Proxy repository for more details on options and configurations.
+
+---
+
+## Solo Mining Direct to Core
+
+For users who prefer to mine directly to their Telestai core wallet, here is a quick setup guide for both Windows and Linux.
+
+### Prerequisites
+
+1. **Telestai Core Wallet** installed and synced.
+2. **Telemeraki Miner** downloaded.
+
+### Configuration File Setup
+
+#### Windows
+
+1. **Locate the Telestai Data Directory:**
+   - Navigate to: `C:\Users\<username>\AppData\Roaming\Telestai`.
+
+2. **Create/Edit `telestai.conf`:**
+   Add the following lines:
+   ```plaintext
+   listen=1
+   server=1
+   daemon=1
+   rpcuser=user
+   rpcpassword=admin
+   miningaddress=TtipN9cJNiXbcf9fJo4nMWG5A1ag5FSZm3
+   rpcport=8766
+   rpcallowip=127.0.0.1
+   rpcbind=127.0.0.1
+   addnode=45.79.159.32
+   ```
+
+3. **Restart your wallet** after saving the configuration.
+
+#### Linux
+
+1. **Locate the Telestai Data Directory:**
+   - Navigate to: `~/.telestai`.
+
+2. **Create/Edit `telestai.conf`:**
+   ```bash
+   nano ~/.telestai/telestai.conf
+   ```
+
+   Add the same configuration lines as above.
+
+3. **Restart your wallet** after saving the file.
+
+### Starting the Miner
+
+#### Windows
+1. **Open Command Prompt:**
+   ```bash
+   cd path\to\telemerakiminer
+   telemerakiminer.exe -U -P http://user:admin@127.0.0.1:8766/
+   ```
+
+#### Linux
+1. **Open Terminal:**
+   ```bash
+   cd path/to/telemerakiminer
+   ./telemerakiminer -U -P http://user:admin@127.0.0.1:8766/
+   ```
+
+---
+
+## Important Notes
+
+- Keep your **rpcuser** and **rpcpassword** secure.
+- Ensure your wallet is running and fully synced before starting your miner.
+- Always replace the example mining address with your own.
+
+---
+
+For additional assistance, visit the [Telestai Community on Discord](https://discord.gg/HYQhTKseyZ).
+```
