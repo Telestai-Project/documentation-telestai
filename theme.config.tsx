@@ -9,7 +9,7 @@ const config: DocsThemeConfig = {
   chat: {
     link: 'https://discord.gg/VmFXfHnZE5',
   },
-  docsRepositoryBase: 'https://github.com/Telestai-Project/documentation-telestai',
+  docsRepositoryBase: 'https://github.com/Telestai-Project/documentation-telestai/tree/main',
   footer: {
     text: 'Telestai Docs',
   },
