@@ -2,6 +2,8 @@
   "index": "Introduction",
   "mining": "Mining Telestai",
   "Core_Wallet": "Core Wallet",
+  "webwallet": "Web Wallet",
+  "paperwallet": "Paper Wallet",
   "about": {
     "title": "About",
     "type": "page"
