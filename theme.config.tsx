@@ -14,7 +14,7 @@ const config: DocsThemeConfig = {
   // Main SEO Titles and Open Graph Tags
   useNextSeoProps() {
     return {
-      titleTemplate: 'Telestai Docs', // General title template for SEO
+      titleTemplate: 'Docs | Telestai', // General title template for SEO
       description: 'Telestai is a gateway to a thriving open-source ecosystem designed to bring decentralized applications into the hands of everyday users.', // Meta description
       openGraph: {
         type: 'website',
