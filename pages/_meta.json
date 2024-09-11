@@ -1,6 +1,9 @@
 {
   "index": "Introduction",
   "whitepaper": "Whitepaper",
+  "economics": "Economics",
+  "devfee": "Development Fee",
+  "trading": "Trading TLS",
   "mining": "Mining Telestai",
   "mediamining": "Social Engagement Mining",
   "Core_Wallet": "Core Wallet",
