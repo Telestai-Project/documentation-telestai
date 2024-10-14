@@ -1,0 +1,148 @@
+# Lascaux Backend System Documentation
+
+## Overview
+
+Lascaux's backend is designed to be decentralized, allowing community members to run their own nodes. In this early **testnet version**, we are testing several key components to ensure they work smoothly under load. This guide provides insights into how the backend operates and how each module functions. 
+
+In this release, **FastAPI** serves as the API framework, and **Cassandra** provides the database, enabling node-based data replication across multiple instances. This documentation will walk through the architecture, key files, and the installation process to get the backend running on your own node.
+
+---
+
+## Key Backend Components
+
+### **Auth Module (`auth.py`)**
+The `auth.py` file handles **user authentication** and **sign-ups** using wallet-based identity. Each user registers with their **wallet address**, which acts as a unique identifier.
+
+#### Key Features:
+- **JWT-based Authentication**: After sign-up or login, the user receives a JWT access token, which is required for subsequent requests.
+- **Environment Configuration**: Uses the `.env` file to manage sensitive keys (like the JWT `SECRET_KEY`).
+- **Duplicate Checks**: Ensures that both wallet addresses and display names are unique before creating a new user.
+
+**Endpoints:**
+- **POST /auth/signup**: Create a new user with wallet authentication.
+- **POST /auth/signin**: Issue a JWT token for a returning user.
+
+---
+
+### **Post Module (`post.py`)**
+The `post.py` file manages **user-generated content** (posts) and ensures that only highly-rated content stays visible.
+
+#### Key Features:
+- **Voting Thresholds**: Posts that receive votes below the threshold (`VOTE_THRESHOLD = -100`) are automatically removed.
+- **Logging**: Each action, like post creation and deletion, is logged for easy tracking.
+- **Pagination**: Supports pagination to handle large volumes of posts.
+
+**Endpoints:**
+- **GET /posts**: Retrieve all posts (with pagination).
+- **POST /posts**: Create a new post.
+- **GET /posts/{post_id}**: Retrieve a specific post by ID.
+- **PUT /posts/{post_id}**: Update an existing post.
+- **DELETE /posts/{post_id}**: Delete a post by ID.
+
+---
+
+### **Vote Module (`vote.py`)**
+The `vote.py` module handles **voting mechanics**, allowing users to upvote or downvote posts.
+
+#### Key Features:
+- **Upvotes and Downvotes**: Vote values are aggregated to determine the visibility of posts.
+- **Vote Tracking**: Ensures that users can vote only once per post to prevent spam.
+
+**Endpoints:**
+- **POST /votes**: Create a new vote.
+- **GET /votes/{vote_id}**: Retrieve a specific vote by ID.
+- **DELETE /votes/{vote_id}**: Delete a vote by ID.
+
+---
+
+## Database System: Cassandra
+
+Cassandra is a **distributed NoSQL database** known for its high availability, horizontal scalability, and fault tolerance. In the Lascaux backend, **Cassandra** stores user profiles, posts, and votes, with **data replicated across nodes** to ensure reliability.
+
+### Key Features of Cassandra:
+- **Decentralization**: Perfect for systems like Lascaux where multiple nodes store and serve data independently.
+- **Replication Across Nodes**: Each node stores a copy of the data, making it resilient to node failures.
+- **High Throughput**: Designed to handle high volumes of reads and writes, making it ideal for social media platforms.
+
+### Cassandra’s Role in Lascaux:
+- Each community node runs its own instance of Cassandra.
+- Data is **replicated across nodes** to ensure consistency and prevent data loss.
+- When a post or vote is created on one node, it can be propagated to others.
+
+**Note**: It is important to **wait until the Cassandra database is fully initialized** before running the backend system.
+
+---
+
+## Installation
+
+Follow these steps to set up and run the Lascaux backend on your own node:
+
+### 1. **Clone the Repository**
+```bash
+git clone https://github.com/Telestai-Project/lascaux-backend.git
+cd lascaux-backend
+```
+
+### 2. **Install Dependencies**
+Ensure you have Python installed (version 3.8 or higher). Then, install the required dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+### 3. **Start the Cassandra Database**
+You must have Cassandra installed. Run the following command to start Cassandra:
+```bash
+python start_cassandra.py
+```
+> **Note**: It may take some time for the Cassandra instance to fully initialize. Wait until it is ready before starting the backend.
+
+### 4. **Run the FastAPI Backend**
+Once Cassandra is up and running, start the backend using Uvicorn:
+```bash
+uvicorn app.main:app --reload
+```
+
+The API will be accessible at `http://127.0.0.1:8000`.
+
+---
+
+## Example Usage
+
+- **Healthcheck**: Verify the backend is running:
+  ```
+  GET /healthcheck
+  ```
+  **Response:**
+  ```json
+  { "status": "ok" }
+  ```
+
+- **Create a User**:
+  ```
+  POST /auth/signup
+  {
+    "wallet_address": "your_wallet_address",
+    "display_name": "your_display_name",
+    "bio": "This is my bio"
+  }
+  ```
+
+- **Create a Post**:
+  ```
+  POST /posts
+  {
+    "user_id": "user_uuid",
+    "title": "First Post",
+    "content": "This is my first post"
+  }
+  ```
+
+---
+
+## Summary
+
+This version of Lascaux is an **early testnet release**, designed to ensure that the backend system is functional and stable. The combination of **FastAPI with Uvicorn** and **Cassandra as the database** provides the scalability needed for a distributed system. 
+
+We encourage the community to explore the system, report issues, and suggest improvements. This feedback will be invaluable as we move toward the next iterations and future releases. 
+
+Feel free to reach out on Discord with any questions or suggestions!

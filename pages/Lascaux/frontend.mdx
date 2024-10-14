@@ -1,0 +1,120 @@
+# Lascaux Frontend System Documentation
+
+## Overview
+
+The **Lascaux frontend** provides a seamless interface for interacting with the platform’s **node-based backend**, allowing users to create posts, vote, and authenticate using their **Telestai wallet**. This approach ensures a decentralized system with secure authentication through **cryptographic signatures**.
+
+Currently, the frontend operates with **wallet-based authentication** and **AI-driven content scoring**, while relying on **JWT tokens** generated with the **user’s wallet address**. This system ensures traceability—allowing the platform to know **who posts, comments, and votes**, while preserving decentralization principles. 
+
+Please note that the frontend implementation is subject to change as we experiment with new features and gather community feedback.
+
+---
+
+## Key Features
+
+### 1. **AI-Driven Content Scoring (Current Implementation)**
+The frontend features **AI-powered content scoring** to maintain the quality and safety of posts. 
+
+#### Current Functionality:
+- If the **AI score is below 25%**, the post is **blocked** from being submitted.
+- **Temporary System**: This is a placeholder as we experiment with AI moderation. In the future, the platform will lean more on **community voting** for moderation, with AI acting as a supporting tool.
+
+The goal is to **maximize community engagement** while ensuring harmful content is minimized through smart moderation tools.
+
+---
+
+### 2. **Pagination of Posts**
+The frontend uses **infinite scrolling** to load posts efficiently, ensuring scalability as the platform grows.
+
+- **Batched Loading**: Posts are loaded **10 at a time** based on user interaction.
+- **Performance Optimization**: Asynchronous loading ensures a smooth experience, even with large datasets.
+
+This system reduces load times and ensures the UI remains responsive as more users join the platform.
+
+---
+
+### 3. **Wallet-Based Authentication with JWT Tokens**
+Lascaux uses **wallet-based authentication**, where users authenticate with their **Telestai wallet** through cryptographic signatures. The authentication system generates **JWT tokens with the user’s wallet address**, ensuring each post, comment, and vote can be **traced back to the originating user**.
+
+#### How It Works:
+1. **Challenge Generation**:
+   - When a user initiates **Sign In** or **Sign Up**, the frontend generates a **challenge string**.
+   - The user signs the challenge using their **wallet key**.
+
+2. **Verification (Frontend-Only)**:
+   - The signature is verified **on the frontend** using our **npm package**.
+   - If valid, a **JWT token** is generated with the **user’s wallet address** embedded inside the payload.
+
+3. **Session Management**:
+   - The JWT token is stored in **localStorage** to maintain user sessions across interactions.
+   - All posts, comments, and votes are **linked to the user’s wallet address** via the JWT, ensuring transparency and accountability.
+
+This setup ensures that **every interaction is tied to a verified user**, even in a decentralized system.
+
+---
+
+## Key Frontend Components
+
+1. **Node Connection & Status Monitoring**:
+   - Users can connect to a **node** by entering its URL.
+   - A **status badge** indicates whether the node is online, offline, or connecting.
+   - Once connected, posts are fetched and displayed automatically.
+
+2. **Content Creation**:
+   - Users can create posts with **real-time AI scoring**. 
+   - Posts are only allowed if the AI score is **above 25%**.
+   - A **safety score indicator** shows the current content score, changing colors based on the value.
+
+3. **Voting System**:
+   - Posts feature **thumbs-up and thumbs-down buttons** for voting.
+   - A **dynamic color gradient** reflects the post’s current vote count.
+   - If a post’s votes drop to **-100 or below**, it is automatically removed.
+
+4. **Modals for Sign In and Sign Up**:
+   - The frontend provides **modals** for both **sign-in** and **sign-up**, guiding users through the authentication process.
+   - Users receive real-time feedback on the authentication status (e.g., “Authenticated!”).
+   - A **profile picture** is generated based on the user’s **display name**.
+
+---
+
+## Example Frontend Workflow
+
+1. **Connecting to a Node**:
+   - Enter the node URL and click **“Connect to Node”**.
+   - The **status badge** shows whether the connection was successful.
+   - If successful, the latest posts are fetched automatically.
+
+2. **Creating a Post**:
+   - Enter a **title** and **content** for the post.
+   - The AI analyzes the content and returns a **safety score**.
+   - If the score is above **25%**, the post can be submitted and displayed at the top of the feed.
+
+3. **Voting on Posts**:
+   - Click the **thumbs-up** or **thumbs-down** buttons to vote on a post.
+   - The color gradient dynamically reflects the total vote count.
+   - If the votes drop to **-100 or below**, the post is automatically removed.
+
+4. **Sign In / Sign Up**:
+   - Open the **Sign In** or **Sign Up** modal.
+   - Enter your wallet address and **sign the challenge**.
+   - Upon verification, a **JWT token** is issued with your **wallet address** embedded.
+   - Use the JWT token to interact with the platform (posting, voting, commenting).
+
+---
+
+## Future Directions
+
+1. **Backend Signature Verification**:
+   - We plan to **move signature verification to the backend** for enhanced security, reducing the reliance on frontend-only verification.
+
+---
+
+## Conclusion
+
+The **Lascaux frontend** offers a powerful interface for interacting with the platform’s **decentralized backend**, allowing users to authenticate with wallets, create posts, and vote on content. With **AI-driven content scoring** and **JWT-based authentication**, every interaction is traceable, ensuring accountability while maintaining decentralization.
+
+This is an **early testnet version**, and we welcome feedback from the community to guide future development. As the platform evolves, we aim to strike the right balance between **AI insights** and **community governance**, building a sustainable and engaging social experience.
+
+---
+
+Let me know if further adjustments are needed!
