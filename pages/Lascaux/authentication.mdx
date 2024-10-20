@@ -1,0 +1,115 @@
+# **Authentication Guide for Lascaux**
+
+Welcome to the **Lascaux authentication guide**! This document will walk you through the process of **signing up and signing in** to the platform using your **Telestai wallet**. Our goal is to provide **secure, passwordless authentication** through blockchain-based signatures while making the process easy and intuitive.
+
+---
+
+## **Supported Wallets for Authentication**
+
+Lascaux offers **three wallet options** for signing messages and verifying your identity. Choose the one that best suits your experience:
+
+1. **Web Wallet** – Best for beginners, offering an easy and intuitive way to manage your wallet online.
+2. **Electrum Wallet** – A more technical option but currently experiencing **known issues with message signing**.
+3. **Telestai Core Wallet** – Ideal for users familiar with core wallet software, offering a smooth message-signing experience.
+
+---
+
+## **Step-by-Step Guide: Signing Up for Lascaux**
+
+### **Step 1: Set Up a Telestai Wallet**
+
+If you don't already have a wallet, choose from one of the following:
+
+- **Web Wallet**:  
+  Visit [Telestai Web Wallet](https://webwallet.telestai.io/) and follow the simple setup instructions. This wallet offers the easiest onboarding process.
+  
+- **Electrum Wallet**:  
+  **Note:** Some users have reported **signature errors** with Electrum. If you encounter issues, we recommend using the **Web Wallet** or **Core Wallet**.
+  - Download Electrum for Telestai from [Electrum Releases](https://github.com/Telestai-Project/electrum-telestai/releases).
+  - Follow the installation instructions to set up your wallet.
+
+- **Core Wallet**:  
+  Download the Telestai Core Wallet from [Core Wallet Releases](https://github.com/Telestai-Project/telestai/releases).
+  - Once installed, you can easily sign messages through the **core wallet interface**.
+
+---
+
+### **Step 2: Sign Up on Lascaux**
+
+1. **Enter Your Wallet Address**: Start the **sign-up process** by entering your wallet address.  
+2. **Sign a Message to Verify**: Lascaux will generate a **challenge string** that you’ll need to sign to prove wallet ownership.
+
+   - **Web Wallet**:  
+     - Navigate to **Sign Message** in the web interface.
+     - Enter the challenge message, sign it, and paste the signature into Lascaux.
+
+   - **Electrum Wallet**:  
+     - Open **Electrum for Telestai** and go to `Tools > Sign/Verify Message`.  
+     - Enter the challenge message and sign it with your wallet address.  
+     **Note:** If you encounter a signature error, switch to the **Web Wallet** or **Core Wallet** for signing.
+
+   - **Core Wallet**:  
+     - Open the **Telestai Core Wallet** and go to `File > Sign Message`.  
+     - Enter the challenge message, sign it with your wallet address, and copy the signature into Lascaux.
+
+3. **Create Your Profile**:  
+   During sign-up, you can set up a **display name, profile image, and bio**. You have complete control over the information you share.
+
+---
+
+## **Step-by-Step Guide: Signing In to Lascaux**
+
+### **Step 1: Authenticate with Your Wallet**
+
+1. **Enter Your Wallet Address**: Use the same wallet address you registered with during sign-up.  
+2. **Sign the Challenge Message**:
+   - Lascaux will generate a **new challenge string** for you to sign.
+   - Use your wallet to sign the message and submit the signature to log in.
+
+---
+
+## **How JWT Authentication Works**
+
+- **JWT Tokens with Wallet Addresses**:  
+  When you log in, Lascaux generates a **JWT token** with your **wallet address embedded**. This ensures that all posts, comments, and votes are **tied to your verified wallet identity**.
+
+- **Session Management**:  
+  Your JWT token is stored in **localStorage**, ensuring seamless access to the platform. When interacting with Lascaux, the platform knows who posted, commented, or voted.
+
+---
+
+## **Security and Best Practices**
+
+- **Blockchain-Based Authentication**: Lascaux eliminates traditional passwords, using **signed messages** for secure login.
+- **BIP39 Seed Phrase**: Your wallet is secured with a **BIP39 master password (seed phrase)**. Keep this phrase safe—it is the only way to recover your wallet if lost.
+- **Use of JWT Tokens**: JWT tokens provide a **transparent and accountable way** to track user interactions while maintaining decentralization.
+
+---
+
+## **Known Issues and Future Enhancements**
+
+- **Electrum Wallet Signature Errors**:  
+  Some users have reported **errors when signing messages** with the Electrum wallet. If you encounter this issue, consider:
+  - Using the **Web Wallet** or **Core Wallet** instead.
+  - Checking for updates on the [Electrum Wallet Releases](https://github.com/Telestai-Project/electrum-telestai/releases).
+
+- **Chrome Wallet Extension**:  
+  We are actively developing a **Chrome Wallet Extension** to streamline the sign-in process. This extension will allow users to **sign messages directly in the browser**, simplifying the authentication experience.
+
+---
+
+## **Troubleshooting Tips**
+
+- **Verify Your Wallet Setup**: Ensure your wallet is correctly configured and connected.  
+- **Check for Typos in the Challenge String**: Make sure the **challenge string** is entered exactly as shown.  
+- **Switch Wallets if Needed**: If you experience issues with **Electrum**, switch to the **Web Wallet** or **Core Wallet** for signing.
+
+---
+
+## **Summary**
+
+The **Lascaux authentication system** provides **secure, passwordless login** using your **Telestai wallet**. With three wallet options—**Web Wallet, Electrum Wallet, and Core Wallet**—you have the flexibility to choose the method that best suits you. While the **Electrum wallet** may currently experience some signature issues, the **Web Wallet** and **Core Wallet** provide reliable alternatives.
+
+Every interaction on Lascaux is **tied to your wallet address** through **JWT tokens**, ensuring transparency and accountability. As we continue improving the platform, the **Chrome Wallet Extension** will further enhance the user experience.
+
+If you need help or encounter any issues, please reach out to our **support team** or the **Lascaux community**.

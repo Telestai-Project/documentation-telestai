@@ -1,0 +1,92 @@
+# Voting
+
+This document explains how **voting works** in Lascaux. Voting is a key feature that allows users to **interact with posts and influence content visibility** through upvotes and downvotes. All voting actions are tied to a user's **Telestai wallet address** via blockchain-based authentication. This ensures transparency and accountability in all interactions.
+
+---
+
+## **How Voting Works**
+
+### 1. **Casting a Vote**
+
+- **Users must be authenticated** through their wallet before voting.
+- A user can either **upvote (positive value)** or **downvote (negative value)** a post. The system enforces **one vote per post per user**.
+- If a user tries to vote again, the system will **toggle their existing vote**:
+  - If a vote already exists, it is **removed**, and the vote value is **adjusted to 0**.
+  - If no vote exists, a **new vote is recorded** with the provided value.
+
+### 2. **Vote Threshold and Post Removal**
+
+- Posts have a **vote threshold** set at **-20**.  
+- If a post’s total vote value drops to **-20 or lower**, the post is **automatically removed** from the platform. This ensures that low-quality or inappropriate content is filtered out by the community.
+
+### 3. **How the Voting API Works**
+
+- **Vote Creation**: When a user votes on a post, the system checks if they have **already voted**:
+  - If a vote exists, it is **deleted**.
+  - If no vote exists, a **new vote** is created with the specified value.
+  
+- **Fetching Vote Data**:
+  - Users can **view their own votes** on specific posts through the API.
+  - The total votes for each post are **aggregated and displayed** in real time.
+  
+- **Deleting a Vote**: Users can **remove their votes** if they no longer want to participate in the voting for a post.
+
+---
+
+## **Endpoints for Voting**
+
+1. **Create or Toggle a Vote**
+   - **Endpoint**: `/votes/`
+   - **Method**: POST  
+   - **Behavior**:  
+     - Creates a new vote if no prior vote exists.
+     - If a vote already exists, it is **deleted** to toggle the vote off.
+
+2. **Get User’s Vote on a Post**
+   - **Endpoint**: `/votes/post/{post_id}/user-vote`
+   - **Method**: GET  
+   - **Response**:  
+     - Returns the **current vote value** of the authenticated user for the specified post.
+
+3. **Get Total Votes for a Post**
+   - **Endpoint**: `/votes/post/{post_id}/votes`
+   - **Method**: GET  
+   - **Response**:  
+     - Returns the **total aggregated vote value** for the post.
+
+4. **Delete a Specific Vote**
+   - **Endpoint**: `/votes/{vote_id}`
+   - **Method**: DELETE  
+   - **Behavior**:  
+     - Deletes the vote with the specified ID.
+
+---
+
+## **Example Voting Workflow**
+
+1. **User votes on a post**:
+   - A new vote is created with a positive or negative value.
+   
+2. **User votes again on the same post**:
+   - The existing vote is **deleted** (toggled off).
+
+3. **User checks their current vote**:
+   - The system returns the **vote value** for the post (if any).
+
+4. **Post reaches the vote threshold**:
+   - If a post’s total votes drop to **-20**, the post is **removed**.
+
+---
+
+## **Logging and Monitoring**
+
+- **Vote creation, deletion, and adjustments** are **logged** to ensure transparency.
+- The system tracks **who voted on what** using wallet addresses, ensuring every vote is tied to a verified identity.
+
+---
+
+## **Summary**
+
+The **voting system** in Lascaux ensures that content is curated by the community. Users can upvote or downvote posts to influence their visibility, and the **threshold of -20** ensures that low-quality content is filtered out. Each voting action is securely tied to the user’s **Telestai wallet**, creating a transparent and accountable interaction model.
+
+This modular voting system encourages participation, ensures transparency, and aligns with Lascaux’s goal of **community-driven content moderation**.

@@ -4,7 +4,7 @@
 
 Lascaux's backend is designed to be decentralized, allowing community members to run their own nodes. In this early **testnet version**, we are testing several key components to ensure they work smoothly under load. This guide provides insights into how the backend operates and how each module functions. 
 
-In this release, **FastAPI** serves as the API framework, and **Cassandra** provides the database, enabling node-based data replication across multiple instances. This documentation will walk through the architecture, key files, and the installation process to get the backend running on your own node.
+In Testnet v2, **FastAPI** serves as the API framework, and **Cassandra** provides the database, enabling node-based data replication across multiple instances. This documentation will walk through the architecture, key files, and the installation process to get the backend running on your own node.
 
 ---
 
@@ -21,6 +21,7 @@ The `auth.py` file handles **user authentication** and **sign-ups** using wallet
 **Endpoints:**
 - **POST /auth/signup**: Create a new user with wallet authentication.
 - **POST /auth/signin**: Issue a JWT token for a returning user.
+- **GET /auth/verify-token**: Verify a JWT token
 
 ---
 
@@ -28,13 +29,14 @@ The `auth.py` file handles **user authentication** and **sign-ups** using wallet
 The `post.py` file manages **user-generated content** (posts) and ensures that only highly-rated content stays visible.
 
 #### Key Features:
-- **Voting Thresholds**: Posts that receive votes below the threshold (`VOTE_THRESHOLD = -100`) are automatically removed.
+- **Voting Thresholds**: Posts that receive votes below the threshold (`VOTE_THRESHOLD = -20`) are automatically removed.
 - **Logging**: Each action, like post creation and deletion, is logged for easy tracking.
 - **Pagination**: Supports pagination to handle large volumes of posts.
 
 **Endpoints:**
 - **GET /posts**: Retrieve all posts (with pagination).
 - **POST /posts**: Create a new post.
+- **POST /posts/create_post**: Create a new post (requires JWT token).
 - **GET `/posts/{post_id}`**: Retrieve a specific post by ID.
 - **PUT `/posts/{post_id}`**: Update an existing post.
 - **DELETE `/posts/{post_id}`**: Delete a post by ID.
@@ -45,13 +47,16 @@ The `post.py` file manages **user-generated content** (posts) and ensures that o
 The `vote.py` module handles **voting mechanics**, allowing users to upvote or downvote posts.
 
 #### Key Features:
-- **Upvotes and Downvotes**: Vote values are aggregated to determine the visibility of posts.
-- **Vote Tracking**: Ensures that users can vote only once per post to prevent spam.
+- **Toggle Voting**: Users can toggle their vote on a post, either adding a new vote or removing an existing one.
+- **Vote Aggregation**: The total vote value for a post is calculated by summing individual vote values.
+- **User-Specific Voting**: Users can check their specific vote on a post.
 
 **Endpoints:**
-- **POST /votes**: Create a new vote.
-- **GET `/votes/{vote_id}`**: Retrieve a specific vote by ID.
-- **DELETE `/votes/{vote_id}`**: Delete a vote by ID.
+- **POST `/votes`**: Allows a user to toggle their vote on a post. If a vote already exists, it is removed; otherwise, a new vote is created.
+- **GET `/votes/{vote_id}`**: Retrieves a specific vote by its ID. If the vote does not exist, a 404 error is returned.
+- **GET `/post/{post_id}/votes`**: Calculates and returns the total vote value for a specific post by summing all votes.
+- **GET `/post/{post_id}/user-vote`**: Retrieves the current user's vote value on a specific post. If no vote is found, it returns a vote value of 0.
+- **DELETE `/votes/{vote_id}`**: Deletes a vote by its ID. If the vote does not exist, a 404 error is returned.
 
 
 ---
@@ -77,6 +82,8 @@ Cassandra is a **distributed NoSQL database** known for its high availability, h
 ## Installation
 
 Follow these steps to set up and run the Lascaux backend on your own node:
+
+Note: You'll need to have Docker installed to run Lascaux Backend.
 
 ### 1. **Clone the Repository**
 ```bash
@@ -125,16 +132,6 @@ The API will be accessible at `http://127.0.0.1:8000`.
     "wallet_address": "your_wallet_address",
     "display_name": "your_display_name",
     "bio": "This is my bio"
-  }
-  ```
-
-- **Create a Post**:
-  ```
-  POST /posts
-  {
-    "user_id": "user_uuid",
-    "title": "First Post",
-    "content": "This is my first post"
   }
   ```
 
