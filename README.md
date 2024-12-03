@@ -18,9 +18,9 @@ You can contribute by submitting pull requests (PRs) with improvements or additi
 
 To work on this documentation locally:
 
-1. First, run `npm i` to install the dependencies.
+1. First, run `pnpm i` to install the dependencies.
 
-2. Then, run `npm run dev` to start the development server and visit `localhost:3000`.
+2. Then, run `pnpm run dev` to start the development server and visit `localhost:3000`.
 
 ---
 

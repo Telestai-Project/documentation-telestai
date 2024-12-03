@@ -1,0 +1,84 @@
+# Mercatus Streaming System Documentation
+
+Welcome to **Mercatus**, a streaming system powered by Telestai. This is a public data streaming platform designed for transparency and experimentation within the Telestai ecosystem.
+
+## Live Dashboard
+
+You can view the live stream of submitted data at:
+
+[https://mercatus.telestai.io/](https://mercatus.telestai.io/)
+
+The frontend, built with **Next.js**, acts as a Kafka consumer and displays live updates of streaming data in real-time. The backend, written in **Python**, powers the Kafka producer and manages the data pipeline.
+
+---
+
+## Telestai Chrome Extension
+
+To participate in data streaming, you can download the **Telestai Chrome Extension**:
+
+[Telestai Chrome Extension v1.0.0](https://github.com/Telestai-Project/telestai-chrome-extension/releases/tag/mercatus-1.0.0)
+
+The extension allows you to **opt-in** to data streaming. By enabling streaming, you actively share specific data with the Mercatus platform.
+
+---
+
+## What Happens When You Opt-In?
+
+### Data Being Streamed
+When you opt into streaming:
+- **Base URLs** (e.g., `google.com`) are shared.
+- **Time spent** on each tab is included.
+
+### No Other Information Collected
+- No private or sensitive data is collected.
+- The system **does not store data**—it leverages streaming only.
+
+---
+
+## Transparency and User Control
+
+### Live Data Visibility
+All streamed data is visible to anyone accessing the live dashboard at [https://mercatus.telestai.io/](https://mercatus.telestai.io/). This transparency is intentional to help users understand what data is being shared.
+
+### User Security
+User security is paramount. We emphasize:
+- You are in **complete control** of enabling or disabling streaming.
+- The system does not track private information or store any data beyond the live streaming session.
+
+---
+
+## Technical Overview
+
+The Mercatus Streaming System is built using:
+- **Kafka** for real-time data streaming.
+- **Docker** for efficient containerization of services.
+- **Python** for backend logic and Kafka producer/consumer integration.
+- **Next.js** for the frontend live dashboard.
+
+---
+
+## Purpose and Vision
+
+This release is a **basic preview** designed for early adopters and enthusiasts within the Telestai ecosystem. It demonstrates:
+- The potential of data streaming in a transparent environment.
+- A foundation for future integrations with **marketing agencies** and other participating parties.
+
+---
+
+## Important Disclaimer
+
+By opting into data streaming:
+1. Your shared data will be publicly visible to anyone using the Mercatus frontend.
+2. The current implementation is experimental and focuses on **streaming only**, not storage.
+
+We encourage all users to understand the implications of data streaming before opting in.
+
+---
+
+## Get Involved
+
+This project is supported by the Telestai ecosystem and driven by user feedback. If you have any questions or suggestions, feel free to reach out to us or explore the open-source codebase.
+
+Thank you for being part of the journey!
+
+---
