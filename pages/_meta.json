@@ -6,11 +6,9 @@
   "trading": "Trading TLS",
   "mining": "Mining Telestai",
   "mediamining": "Social Engagement Mining",
-  "Core_Wallet": "Core Wallet",
+  "Wallets": "Wallets",
   "Lascaux": "Lascaux Testnet",
   "Mercatus": "Mercatus Data Streaming",
-  "webwallet": "Web Wallet",
-  "paperwallet": "Paper Wallet",
   "about": {
     "title": "About",
     "type": "page"
