@@ -1,109 +1,91 @@
-# **Lascaux Node Setup Guide**
+# **Lascaux Node Setup Guide (v3)**
 
-This guide will walk you through setting up a **Lascaux node**, helping decentralize the platform and participate in the testnet. A Lascaux node hosts a **database and API**, making it lightweight and easy to manage. Nodes do **not need to sync** with each other at this time, and they **do not assist with AI moderation yet**, so **high availability is not required**.
+This guide provides detailed instructions for setting up a **Lascaux v3 Node**. Running a node helps decentralize the Lascaux platform and participate in the testnet. Nodes host a **database and API** and are designed to be lightweight, independent, and easy to set up. 
+
+Nodes do **not need to sync** at this time, and they **do not yet assist with AI moderation**, making high availability unnecessary. However, your contribution helps pave the way for future updates, including incentives for node operators.
 
 ---
 
 ## **Why Run a Lascaux Node?**
 
-1. **Lightweight Requirements**: A few CPU cores and a few GB of RAM will suffice.
-2. **No High Availability Required**: Your node doesn’t need to run 24/7.
-3. **Database and API Hosting**: Your node serves local data without syncing with other nodes.
-4. **Decentralized Governance**: The system remains operational even if individual nodes go offline.
-5. **Contribute to the Testnet**: Your node can be listed on the official Lascaux frontend.
+1. **Lightweight Design**: Only a few CPU cores and a few GB of RAM are needed.
+2. **Independent Operation**: Nodes run independently, with no syncing required.
+3. **Community Contribution**: Decentralize the platform and prepare for future features.
+4. **Future Incentives**: Potential TLS rewards based on node usage.
 
 ---
 
 ## **Prerequisites**
 
-- **Docker**: [Install Docker](https://www.docker.com/get-started).
+- **Python**: Version 3.10 or higher.
 - **Git**: [Install Git](https://git-scm.com/downloads).
-- **Python 3.8+**: Required to run the backend.
-- **Nginx**: Optional, for reverse proxy and SSL.
-- **Open Ports**:
-  - **Port 80**: For HTTP traffic (required by Nginx and Certbot).
-  - **Port 443**: For HTTPS traffic (SSL).
-- **Router Access**: To set up **port forwarding** if needed.
+- **Docker**: Required to run the Cassandra database. [Install Docker](https://www.docker.com/get-started).
+- **Make Utility**: For streamlined commands.
+- **Ports Open**:
+  - **Port 80**: For HTTP traffic.
+  - **Port 443**: For HTTPS traffic (Certbot requirement).
+- **Router Access**: For port forwarding if required.
 
 ---
 
-## **Setup Instructions**
+## **Installation**
 
 ### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/Telestai-Project/lascaux-backend.git
 cd lascaux-backend
-git checkout v2.0.0
+git checkout v3.0.0
 ```
 
 ---
 
-### 2. Install Python Dependencies
+### 2. Install Dependencies
 
-Make sure Python is installed, then install the required dependencies:
+Run the following `make` command to install the necessary Python packages:
 
 ```bash
-pip install -r requirements.txt
+make install
 ```
 
 ---
 
-### 3. Start the Cassandra Database
+### 3. Run the FastAPI Backend
 
-Run the Cassandra setup script:
-
-```bash
-python start_cassandra.py
-```
-
-Wait a few minutes for Cassandra to initialize.
-
----
-
-### 4. Run the FastAPI Backend
-
-Once Cassandra is up, start the backend using **Uvicorn**:
+Start the backend using the following command(This will start the backend and the Cassandra database):
 
 ```bash
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+make run_app
 ```
 
-Your backend will be accessible at **`http://127.0.0.1:8000`**.
+The backend will be accessible at **`http://127.0.0.1:8000`**.
 
 ---
 
 ## **Setting Up Nginx for Public Access**
 
-To make your node accessible from the internet over **HTTPS**, set up Nginx as a **reverse proxy**.
+To make your node accessible over HTTPS, configure Nginx as a reverse proxy.
 
-### Step 1: Install Nginx
+### Step 1: Install Nginx and Certbot
 
 ```bash
 sudo apt update
-sudo apt install nginx
-```
-
-### Step 2: Install Certbot for SSL
-
-```bash
-sudo apt install certbot python3-certbot-nginx
+sudo apt install nginx certbot python3-certbot-nginx
 ```
 
 ---
 
-### Step 3: Configure Nginx
+### Step 2: Configure Nginx
 
-Create an Nginx configuration file for your domain:
+Create a new Nginx configuration file:
 
 ```bash
-sudo nano /etc/nginx/sites-available/yourdomainhere.com
+sudo nano /etc/nginx/sites-available/lascaux-node.conf
 ```
 
-Paste the following content into the file:
+Add the following configuration:
 
 ```nginx
-# Redirect HTTP to HTTPS
 server {
     listen 80;
     server_name yourdomainhere.com;
@@ -113,7 +95,6 @@ server {
     }
 }
 
-# HTTPS Configuration for Backend
 server {
     listen 443 ssl;
     server_name yourdomainhere.com;
@@ -133,19 +114,21 @@ server {
 
 ---
 
-### Step 4: Enable the Nginx Configuration
+### Step 3: Enable Nginx Configuration
 
-Link your configuration to the enabled sites directory:
+Link the configuration file to the enabled sites directory:
 
 ```bash
-sudo ln -s /etc/nginx/sites-available/yourdomainhere.com /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/lascaux-node.conf /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
 ```
 
 ---
 
-### Step 5: Obtain SSL Certificates with Certbot
+### Step 4: Set Up SSL with Certbot
 
-Ensure **ports 80 and 443** are forwarded to your server. Then, run Certbot:
+Run Certbot to configure SSL:
 
 ```bash
 sudo certbot --nginx -d yourdomainhere.com
@@ -153,51 +136,85 @@ sudo certbot --nginx -d yourdomainhere.com
 
 ---
 
-### Step 6: Test and Restart Nginx
-
-```bash
-sudo nginx -t  # Check for syntax errors
-sudo systemctl restart nginx
-```
-
-Your node will now be accessible at **https://yourdomainhere.com**.
-
----
-
 ## **Port Forwarding**
 
-If your node is hosted behind a router, follow these steps to **forward ports**:
-
-1. Access your router’s admin panel (usually at `192.168.x.x`).
-2. Find the **port forwarding** section.
-3. Forward **port 80** to the machine running the backend.
-4. Forward **port 443** for HTTPS access.
+If your node is behind a router, forward the following ports to your server:
+- **Port 80**: For HTTP traffic and Certbot validation.
+- **Port 443**: For HTTPS traffic.
 
 ---
 
-## **Get Your Node Listed on the Testnet Frontend**
+## **Submit Your Node**
 
-To list your node on the official frontend at [https://lascaux.telestai.io](https://lascaux.telestai.io):
+To get your node listed on the [Lascaux platform](https://lascaux.telestai.io):
 
-1. Make sure your node is running and accessible (check with `/healthcheck`).
-2. Verify the connection with:
+1. Ensure your node is running and accessible at `/healthcheck`. Verify with:
+
    ```bash
    curl https://yourdomainhere.com/healthcheck
    ```
-3. Contact us on **Discord** with your node’s URL, and we’ll add it to the frontend.
+
+   A successful response will look like:
+
+   ```json
+   { "status": "ok" }
+   ```
+
+2. Submit a pull request to the [Lascaux Nodes Repository](https://github.com/Telestai-Project/lascaux-nodes) with the following format:
+
+   ```json
+   {
+       "nodeURL": "https://yourdomainhere.com",
+       "nodeName": "Your Node Name",
+       "nodeImg": "https://yourdomainhere.com/logo.png",
+       "nodeWallet": "Your Telestai Wallet Address",
+       "nodeDescription": "Optional: A description of your node",
+       "status": "public"
+   }
+   ```
+
+Once approved, your node will appear on the Lascaux frontend.
 
 ---
 
-## **Additional Information**
+## **Setting Up systemd for Automatic Restarts**
 
-- **Lightweight Design**: Your node does not need 24/7 availability or high resources.
-- **No AI Moderation Yet**: AI moderation is currently handled on the frontend. Nodes will assist with moderation in future updates.
-- **Non-Syncing Nodes**: Your node runs independently without needing to sync with other nodes, ensuring data stays intact across the network.
+To ensure your node runs continuously, create a `systemd` service file:
+
+```bash
+sudo nano /etc/systemd/system/lascaux-node.service
+```
+
+Add the following:
+
+```ini
+[Unit]
+Description=Lascaux Node
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/path/to/your/repository
+ExecStart=/usr/bin/make run_app
+Restart=on-failure
+User=your-username
+Group=your-groupname
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable and start the service:
+
+```bash
+sudo systemctl enable lascaux-node.service
+sudo systemctl start lascaux-node.service
+```
 
 ---
 
-## **Conclusion**
+## **Additional Notes**
 
-Congratulations! You’ve successfully set up a Lascaux node. Running a node helps decentralize the platform and prepare for future AI-assisted moderation. Thank you for contributing to the Lascaux testnet—your participation strengthens the community.
-
-If you run into any issues, feel free to reach out on Discord for support.
+- **Node Incentives**: Rewards for node operators (e.g., TLS payouts) are planned for future updates.
+- **AI Moderation**: Currently handled on the frontend; nodes may assist in future versions.
+- **Data Integrity**: Nodes do not sync yet, you are running your own social media database, any information you post on your node is your own.
