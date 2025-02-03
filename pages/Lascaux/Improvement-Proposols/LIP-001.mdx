@@ -1,0 +1,103 @@
+# **Lasko Improvement Proposal (LIP-001)**
+
+**Title:** Verified Author System, Backend Security Enhancements & AI Moderation Migration  
+**Version:** 4.0.0  
+**Status:** 🚧 Draft   
+**Author:** Zach Price  
+**Created:** Feb 3 2025  
+**Target Release:** Lasko v4.0.0
+
+## **Summary**
+
+This proposal outlines the transition from the name **Lascaux to Lasko**, introduces a **Verified Author System** to improve content quality and security, and strengthens backend infrastructure by **dockerizing the backend** while restricting database access to internal requests. Additionally, this proposal includes migrating AI moderation to **Flux** for further decentralization and updating the **Lasko branding with a new logo**.
+
+## **Objectives**
+
+1. **Implement a Verified Author System** to prevent spam & elevate content quality.
+2. **Ensure backend security** by restricting direct Cassandra DB access.
+3. **Leverage Telestai-message** for cryptographic signing & verification.
+4. **Rebrand Lascaux to Lasko** as part of the v4.0.0 release.
+5. **Migrate AI moderation provider to Flux** to decentralize moderation services.
+6. **Update Lasko branding** with a new logo reflecting the new identity.
+
+---
+
+## **📌 Verified Author System**
+
+### **How It Works**
+
+- All users can sign into Lasko, read posts, and vote, but only approved **Verified Authors** can create new posts.
+- Node operators can **choose to accept**:
+    - **Verified Authors (default)** – Pulled from a community-approved list.
+    - **Custom Author List** – Operators can manually approve specific public keys (Telestai Addresses).
+
+### **Governance & Onboarding**
+
+- The system will operate similarly to `lascaux-nodes`, where authors **submit a PR request** to add their address as our early POC with plans to elaborate on this system later on for broader community accessibility and support.
+- Community **reviews and approves** author requests.
+- A **verified icon** will appear next to usernames for approved authors.
+
+### **Reporting & Content Moderation**
+
+- If a post is flagged **5 times**, the author’s public key will be **temporarily suspended**.
+- The flagged metric might scale, i.e., if 200 people in the node, an X % would be required. Outside of scope for 4.0.0 though, can be implemented and perfected in the next sprint.
+- A governance appeal process will allow authors to **regain posting privileges**.
+
+---
+
+## **🔒 Backend Security & Infrastructure**
+
+- **Dockerizing the backend** ensures Lasko nodes are easy to deploy securely.
+- **Cassandra DB will no longer be exposed** to the global internet—only FastAPI will be publicly accessible.
+- **Post verification** will require a **Telestai-signed message**, ensuring only properly signed posts enter the database.
+
+---
+
+## **🤖 AI Moderation Migration to Flux**
+
+- Current AI moderation system relies on centralized services.
+- Lasko v4.0.0 will **integrate Flux as the primary AI moderation provider**, allowing for **decentralized content filtering**.
+- This enhances **censorship resistance** and **ensures the moderation process is distributed** across multiple independent nodes.
+
+---
+
+## **🎨 Branding & Logo Update**
+
+- As part of the **Lasko rebranding**, a **new logo** will be introduced.
+- The logo will reflect the **new decentralized-first vision** of Lasko and align with Telestai’s broader ecosystem aesthetics.
+
+---
+
+## **🛠 Implementation & Dependencies**
+
+- **Frontend:** Will display the **Verified Author badge**, integrate Flux moderation, and update branding.
+- **Backend:**
+    - Update FastAPI layer to **verify signed messages** before adding posts.
+    - Integrate a **Telestai-message Python implementation** to verify cryptographic signatures.
+    - Fully dockerize the backend with proper security configurations.
+    - Implement **Flux-based AI moderation** as the primary moderation engine.
+
+---
+
+## **🚀 Goals & Future Expansion**
+
+- **Prevent spam & abuse** while keeping the system **decentralized & scalable**.
+- **Encourage high-quality content** by establishing a **trusted author network**.
+- **Provide a sustainable on-ramp for new creators** to enter the ecosystem.
+- **Leverage AI moderation on a decentralized network** for content filtering.
+
+---
+
+## **Next Steps**
+
+1. Develop **Python-based message verification** for Telestai-message.
+2. Create **Verified Author web portal** for onboarding creators.
+3. Implement **frontend UI updates**, including Verified Badges and Flux integration.
+4. **Dockerize Lasko backend** and restrict DB access.
+5. **Update Lasko branding & logo**.
+
+---
+
+### **Final Notes**
+
+Lasko v4.0.0 will be a **major milestone** in ensuring **secure, high-quality content** while maintaining **decentralized principles**. By incorporating **Flux moderation, a Verified Author system, and security enhancements**, this update will **strengthen Lasko’s position as a leading decentralized content platform**.
