@@ -1,8 +1,8 @@
-# Lascaux Backend System Documentation
+# Lasko Backend System Documentation
 
 ## Overview
 
-Lascaux's backend is designed to be decentralized, allowing community members to run their own nodes. In this early **testnet version**, we are testing several key components to ensure they work smoothly under load. This guide provides insights into how the backend operates and how each module functions. 
+Lasko's backend is designed to be decentralized, allowing community members to run their own nodes. In this early **testnet version**, we are testing several key components to ensure they work smoothly under load. This guide provides insights into how the backend operates and how each module functions. 
 
 In Testnet v2, **FastAPI** serves as the API framework, and **Cassandra** provides the database, enabling node-based data replication across multiple instances. This documentation will walk through the architecture, key files, and the installation process to get the backend running on your own node.
 
@@ -63,14 +63,14 @@ The `vote.py` module handles **voting mechanics**, allowing users to upvote or d
 
 ## Database System: Cassandra
 
-Cassandra is a **distributed NoSQL database** known for its high availability, horizontal scalability, and fault tolerance. In the Lascaux backend, **Cassandra** stores user profiles, posts, and votes, with **data replicated across nodes** to ensure reliability.
+Cassandra is a **distributed NoSQL database** known for its high availability, horizontal scalability, and fault tolerance. In the Lasko backend, **Cassandra** stores user profiles, posts, and votes, with **data replicated across nodes** to ensure reliability.
 
 ### Key Features of Cassandra:
-- **Decentralization**: Perfect for systems like Lascaux where multiple nodes store and serve data independently.
+- **Decentralization**: Perfect for systems like Lasko where multiple nodes store and serve data independently.
 - **Replication Across Nodes**: Each node stores a copy of the data, making it resilient to node failures.
 - **High Throughput**: Designed to handle high volumes of reads and writes, making it ideal for social media platforms.
 
-### Cassandra’s Role in Lascaux:
+### Cassandra’s Role in Lasko:
 - Each community node runs its own instance of Cassandra.
 - Data is **replicated across nodes** to ensure consistency and prevent data loss.
 - When a post or vote is created on one node, it can be propagated to others.
@@ -81,14 +81,14 @@ Cassandra is a **distributed NoSQL database** known for its high availability, h
 
 ## Installation
 
-Follow these steps to set up and run the Lascaux backend on your own node:
+Follow these steps to set up and run the Lasko backend on your own node:
 
-Note: You'll need to have Docker installed to run Lascaux Backend.
+Note: You'll need to have Docker installed to run Lasko Backend.
 
 ### 1. **Clone the Repository**
 ```bash
-git clone https://github.com/Telestai-Project/lascaux-backend.git
-cd lascaux-backend
+git clone https://github.com/Telestai-Project/Lasko-backend.git
+cd Lasko-backend
 ```
 
 ### 2. **Install Dependencies**
@@ -139,7 +139,7 @@ The API will be accessible at `http://127.0.0.1:8000`.
 
 ## Summary
 
-This version of Lascaux is an **early testnet release**, designed to ensure that the backend system is functional and stable. The combination of **FastAPI with Uvicorn** and **Cassandra as the database** provides the scalability needed for a distributed system. 
+This version of Lasko is an **early testnet release**, designed to ensure that the backend system is functional and stable. The combination of **FastAPI with Uvicorn** and **Cassandra as the database** provides the scalability needed for a distributed system. 
 
 We encourage the community to explore the system, report issues, and suggest improvements. This feedback will be invaluable as we move toward the next iterations and future releases. 
 

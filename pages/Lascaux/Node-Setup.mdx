@@ -1,12 +1,12 @@
-# **Lascaux Node Setup Guide (v3)**
+# **Lasko Node Setup Guide (v3)**
 
-This guide provides detailed instructions for setting up a **Lascaux v3 Node**. Running a node helps decentralize the Lascaux platform and participate in the testnet. Nodes host a **database and API** and are designed to be lightweight, independent, and easy to set up. 
+This guide provides detailed instructions for setting up a **Lasko v3 Node**. Running a node helps decentralize the Lasko platform and participate in the testnet. Nodes host a **database and API** and are designed to be lightweight, independent, and easy to set up. 
 
 Nodes do **not need to sync** at this time, and they **do not yet assist with AI moderation**, making high availability unnecessary. However, your contribution helps pave the way for future updates, including incentives for node operators.
 
 ---
 
-## **Why Run a Lascaux Node?**
+## **Why Run a Lasko Node?**
 
 1. **Lightweight Design**: Only a few CPU cores and a few GB of RAM are needed.
 2. **Independent Operation**: Nodes run independently, with no syncing required.
@@ -33,8 +33,8 @@ Nodes do **not need to sync** at this time, and they **do not yet assist with AI
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Telestai-Project/lascaux-backend.git
-cd lascaux-backend
+git clone https://github.com/Telestai-Project/Lasko-backend.git
+cd Lasko-backend
 git checkout v3.0.0
 ```
 
@@ -80,7 +80,7 @@ sudo apt install nginx certbot python3-certbot-nginx
 Create a new Nginx configuration file:
 
 ```bash
-sudo nano /etc/nginx/sites-available/lascaux-node.conf
+sudo nano /etc/nginx/sites-available/Lasko-node.conf
 ```
 
 Add the following configuration:
@@ -119,7 +119,7 @@ server {
 Link the configuration file to the enabled sites directory:
 
 ```bash
-sudo ln -s /etc/nginx/sites-available/lascaux-node.conf /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/Lasko-node.conf /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl reload nginx
 ```
@@ -146,7 +146,7 @@ If your node is behind a router, forward the following ports to your server:
 
 ## **Submit Your Node**
 
-To get your node listed on the [Lascaux platform](https://lascaux.telestai.io):
+To get your node listed on the [Lasko platform](https://Lasko.telestai.io):
 
 1. Ensure your node is running and accessible at `/healthcheck`. Verify with:
 
@@ -160,7 +160,7 @@ To get your node listed on the [Lascaux platform](https://lascaux.telestai.io):
    { "status": "ok" }
    ```
 
-2. Submit a pull request to the [Lascaux Nodes Repository](https://github.com/Telestai-Project/lascaux-nodes) with the following format:
+2. Submit a pull request to the [Lasko Nodes Repository](https://github.com/Telestai-Project/Lasko-nodes) with the following format:
 
    ```json
    {
@@ -173,7 +173,7 @@ To get your node listed on the [Lascaux platform](https://lascaux.telestai.io):
    }
    ```
 
-Once approved, your node will appear on the Lascaux frontend.
+Once approved, your node will appear on the Lasko frontend.
 
 ---
 
@@ -182,14 +182,14 @@ Once approved, your node will appear on the Lascaux frontend.
 To ensure your node runs continuously, create a `systemd` service file:
 
 ```bash
-sudo nano /etc/systemd/system/lascaux-node.service
+sudo nano /etc/systemd/system/Lasko-node.service
 ```
 
 Add the following:
 
 ```ini
 [Unit]
-Description=Lascaux Node
+Description=Lasko Node
 After=network.target
 
 [Service]
@@ -207,8 +207,8 @@ WantedBy=multi-user.target
 Enable and start the service:
 
 ```bash
-sudo systemctl enable lascaux-node.service
-sudo systemctl start lascaux-node.service
+sudo systemctl enable Lasko-node.service
+sudo systemctl start Lasko-node.service
 ```
 
 ---
